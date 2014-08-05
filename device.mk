@@ -115,6 +115,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	TIMultiDisplay
 
+#MTP Host
+PRODUCT_PACKAGES += \
+	mtpfuse \
+	fusermount
+
 # Radio
 PRODUCT_PACKAGES += \
 	HelloRadio \
