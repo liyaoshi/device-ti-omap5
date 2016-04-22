@@ -72,7 +72,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.sf.lcd_density=160
 
 # WI-Fi
-PRODUCT_PACKAGES += \
+# PRODUCT_PACKAGES += \
 	wpa_supplicant \
 	wpa_supplicant.conf \
 	wpa_supplicant_overlay.conf \
@@ -111,7 +111,7 @@ PRODUCT_PACKAGES += \
 	tinycap
 
 # Radio
-PRODUCT_PACKAGES += \
+# PRODUCT_PACKAGES += \
 	RadioApp \
 	lad_dra7xx \
 	libtiipc \
