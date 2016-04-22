@@ -207,37 +207,6 @@ struct pcm_config pcm_config_bt_out = {
     .period_count    = BT_PERIOD_COUNT,
 };
 
-static int find_card_index(const char *supported_cards[], int num_supported)
-{
-    char name[256] = "";
-    int card = 0;
-    int found = 0;
-    int i;
-
-#ifdef OMAP_ENHANCEMENT
-    do {
-        /* returns an error after last valid card */
-        int ret = mixer_get_card_name(card, name, sizeof(name));
-        if (ret)
-            break;
-
-        for (i = 0; i < num_supported; ++i) {
-            if (supported_cards[i] && !strcmp(name, supported_cards[i])) {
-                ALOGV("Supported card '%s' found at %d", name, card);
-                found = 1;
-                break;
-            }
-        }
-    } while (!found && (card++ < MAX_CARD_COUNT));
-#endif
-
-    /* Use default card number if not found */
-    if (!found)
-        card = 0;
-
-    return card;
-}
-
 static void do_out_standby(struct j6_stream_out *out);
 
 /* must be called with device lock held */
@@ -1756,14 +1725,11 @@ static int adev_open(const hw_module_t* module, const char* name,
 
     adev->in_device = AUDIO_DEVICE_IN_BUILTIN_MIC;
     adev->out_device = AUDIO_DEVICE_OUT_SPEAKER;
-    adev->card = find_card_index(supported_media_cards,
-                                 ARRAY_SIZE(supported_media_cards));
+    adev->card = 0;
     adev->in_port = 0;
     adev->out_port = 0;
     ALOGI("Media card is hw:%d\n", adev->card);
-
-    adev->bt_card = find_card_index(supported_bt_cards,
-                                    ARRAY_SIZE(supported_bt_cards));
+    adev->bt_card=2;	
     adev->bt_port = 0;
     ALOGI("Bluetooth SCO card is hw:%d\n", adev->bt_card);
 

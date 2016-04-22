@@ -56,6 +56,7 @@
  * it sometimes takes the card #1 slot and puts us
  * on card #2.
  */
+#define HDMI_PCM_CARD 1
 #define HDMI_PCM_DEV 0
 #define HDMI_SAMPLING_RATE 44100
 #define HDMI_PERIOD_SIZE 1920
@@ -321,37 +322,9 @@ int hdmi_out_set_volume(struct audio_stream_out *stream, float left, float right
     return -ENOSYS;
 }
 
-static int hdmi_out_find_card(void)
-{
-    char name[256] = "";
-    int card = 0;
-    int found = 0;
-
-#ifdef OMAP_ENHANCEMENT
-    do {
-        /* return an error after last valid card */
-        int ret = mixer_get_card_name(card, name, sizeof(name));
-        if (ret)
-            break;
-
-        if (strstr(name, "HDMI") || strstr(name, "hdmi")) {
-            TRACEM("HDMI card '%s' found at %d", name, card);
-            found = 1;
-            break;
-        }
-    } while (card++ < MAX_CARD_COUNT);
-#endif
-
-    /* Use default card number if not found */
-    if (!found)
-        card = 1;
-
-    return card;
-}
-
 static int hdmi_out_open_pcm(hdmi_out_t *out)
 {
-    int card = hdmi_out_find_card();
+    int card = HDMI_PCM_CARD;
     int dev = HDMI_PCM_DEV;
     int ret;
 

@@ -117,37 +117,6 @@ struct pcm_config pcm_config_capture = {
     .stop_threshold  = CAPTURE_BUFFER_SIZE,
 };
 
-static int find_card_index(const char *supported_cards[], int num_supported)
-{
-    char name[256] = "";
-    int card = 0;
-    int found = 0;
-    int i;
-
-#ifdef OMAP_ENHANCEMENT
-    do {
-        /* returns an error after last valid card */
-        int ret = mixer_get_card_name(card, name, sizeof(name));
-        if (ret)
-            break;
-
-        for (i = 0; i < num_supported; ++i) {
-            if (supported_cards[i] && !strcmp(name, supported_cards[i])) {
-                ALOGV("Supported card '%s' found at %d", name, card);
-                found = 1;
-                break;
-            }
-        }
-    } while (!found && (card++ < MAX_CARD_COUNT));
-#endif
-
-    /* Use default card number if not found */
-    if (!found)
-        card = 0;
-
-    return card;
-}
-
 /* must be called with device lock held */
 static void select_input_device(struct j6_audio_device *adev)
 {
@@ -929,8 +898,7 @@ static int adev_open(const hw_module_t* module, const char* name,
     adev->device.dump = adev_dump;
 
     adev->in_device = AUDIO_DEVICE_IN_BUILTIN_MIC;
-    adev->card = find_card_index(supported_cards,
-                                 ARRAY_SIZE(supported_cards));
+    adev->card = 3;
     adev->in_port = 0;
     ALOGI("JAMR3 card is hw:%d\n", adev->card);
 
