@@ -14,7 +14,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(findstring jacinto6, $(TARGET_BOARD_PLATFORM)),jacinto6)
+ifeq ($(findstring omap5, $(TARGET_BOARD_PLATFORM)),omap5)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := audio_policy.conf
