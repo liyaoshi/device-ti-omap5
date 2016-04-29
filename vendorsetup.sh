@@ -15,4 +15,5 @@
 #
 
 add_lunch_combo full_omap5uevm-eng
+add_lunch_combo full_omap5uevm-user
 add_lunch_combo full_omap5uevm-userdebug
