@@ -15,27 +15,27 @@
 #
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/ti/jacinto6evm/kernel
+LOCAL_KERNEL := device/ti/omap5uevm/kernel
 else
 LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
 
 PRODUCT_COPY_FILES := \
 	$(LOCAL_KERNEL):kernel \
-	device/ti/jacinto6evm/tablet_core_hardware_jacinto6evm.xml:system/etc/permissions/tablet_core_hardware_jacinto6evm.xml \
-	device/ti/jacinto6evm/init.jacinto6evmboard.rc:root/init.jacinto6evmboard.rc \
-	device/ti/jacinto6evm/init.jacinto6evmboard.usb.rc:root/init.jacinto6evmboard.usb.rc \
-	device/ti/jacinto6evm/ueventd.jacinto6evmboard.rc:root/ueventd.jacinto6evmboard.rc \
-	device/ti/jacinto6evm/fstab.jacinto6evmboard:root/fstab.jacinto6evmboard \
-	device/ti/jacinto6evm/media_profiles.xml:system/etc/media_profiles.xml \
-	device/ti/jacinto6evm/media_codecs.xml:system/etc/media_codecs.xml \
-	device/ti/jacinto6evm/bootanimation.zip:/system/media/bootanimation.zip \
+	device/ti/omap5uevm/tablet_core_hardware_omap5uevm.xml:system/etc/permissions/tablet_core_hardware_omap5uevm.xml \
+	device/ti/omap5uevm/init.omap5uevmboard.rc:root/init.omap5uevmboard.rc \
+	device/ti/omap5uevm/init.omap5uevmboard.usb.rc:root/init.omap5uevmboard.usb.rc \
+	device/ti/omap5uevm/ueventd.omap5uevmboard.rc:root/ueventd.omap5uevmboard.rc \
+	device/ti/omap5uevm/fstab.omap5uevmboard:root/fstab.omap5uevmboard \
+	device/ti/omap5uevm/media_profiles.xml:system/etc/media_profiles.xml \
+	device/ti/omap5uevm/media_codecs.xml:system/etc/media_codecs.xml \
+	device/ti/omap5uevm/bootanimation.zip:/system/media/bootanimation.zip \
 	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
 	frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
 	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
 	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-	device/ti/jacinto6evm/Atmel_maXTouch_Touchscreen.idc:system/usr/idc/Atmel_maXTouch_Touchscreen.idc \
-	device/ti/jacinto6evm/LDC_3001_TouchScreen_Controller.idc:system/usr/idc/LDC_3001_TouchScreen_Controller.idc \
+	device/ti/omap5uevm/Atmel_maXTouch_Touchscreen.idc:system/usr/idc/Atmel_maXTouch_Touchscreen.idc \
+	device/ti/omap5uevm/LDC_3001_TouchScreen_Controller.idc:system/usr/idc/LDC_3001_TouchScreen_Controller.idc \
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -57,7 +57,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_CHARACTERISTICS := tablet,nosdcard
 
 DEVICE_PACKAGE_OVERLAYS := \
-	device/ti/jacinto6evm/overlay
+	device/ti/omap5uevm/overlay
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
@@ -87,15 +87,15 @@ PRODUCT_PACKAGES += \
 	libdrm
 
 # Audio HAL modules
-PRODUCT_PACKAGES += audio.primary.jacinto6
-PRODUCT_PACKAGES += audio.hdmi.jacinto6
+PRODUCT_PACKAGES += audio.primary.omap5
+PRODUCT_PACKAGES += audio.hdmi.omap5
 # BlueDroid a2dp Audio HAL module
 PRODUCT_PACKAGES += audio.a2dp.default
 # Remote submix
 PRODUCT_PACKAGES += audio.r_submix.default
 
 # Audio policy
-PRODUCT_PACKAGES += audio_policy.jacinto6
+PRODUCT_PACKAGES += audio_policy.omap5
 
 PRODUCT_PACKAGES += \
 	audio_policy.conf \
@@ -148,9 +148,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.com.ti.omap_multizone_audio=true
 
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
-$(call inherit-product-if-exists, hardware/ti/dra7xx/jacinto6.mk)
+$(call inherit-product-if-exists, hardware/ti/dra7xx/omap5.mk)
 $(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
-$(call inherit-product-if-exists, device/ti/proprietary-open/jacinto6/ti-jacinto6-vendor.mk)
-$(call inherit-product-if-exists, device/ti/proprietary-open/jacinto6/ducati-full_jacinto6evm.mk)
+$(call inherit-product-if-exists, device/ti/proprietary-open/omap5/ti-omap5-vendor.mk)
+$(call inherit-product-if-exists, device/ti/proprietary-open/omap5/ducati-full_omap5uevm.mk)
 $(call inherit-product-if-exists, device/ti/proprietary-open/wl12xx/wlan/wl12xx-wlan-fw-products.mk)
 $(call inherit-product-if-exists, device/ti/proprietary-open/wl12xx/wpan/wl12xx-wpan-fw-products.mk)
